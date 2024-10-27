@@ -1,19 +1,20 @@
+import os
 import requests
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-# ضع هنا التوكن الخاص بك
-TELEGRAM_TOKEN = '7716810141:AAHfQJo6SD2f7-Gr2Zz6QzIYr4eA0tao8oM'  # Place your token here
+# Use os.environ to fetch the token from the environment
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """يتم تنفيذ هذه الدالة عند بدء المحادثة مع البوت"""
+    """Executes when the conversation with the bot starts."""
     await update.message.reply_text("مرحبًا! أرسل لي أي رابط لأقوم بتقصيره.")
 
 async def shorten_url(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """يتم تنفيذ هذه الدالة عندما يرسل المستخدم رابطًا"""
+    """Executes when the user sends a link."""
     long_url = update.message.text
 
-    # نستخدم TinyURL API لتقصير الرابط
+    # Use TinyURL API to shorten the link
     response = requests.get(f'http://tinyurl.com/api-create.php?url={long_url}')
     
     if response.status_code == 200:
@@ -23,14 +24,14 @@ async def shorten_url(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         await update.message.reply_text('حدث خطأ أثناء محاولة تقصير الرابط.')
 
 def main():
-    # إعداد البوت باستخدام Application بدلاً من Updater
+    # Set up the bot using Application
     application = Application.builder().token(TELEGRAM_TOKEN).build()
 
-    # إضافة الأوامر والمعالجات للبوت
+    # Add commands and handlers to the bot
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, shorten_url))
 
-    # تشغيل البوت
+    # Start the bot
     application.run_polling()
 
 if __name__ == '__main__':
