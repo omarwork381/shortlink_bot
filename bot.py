@@ -3,7 +3,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # ضع هنا التوكن الخاص بك
-TELEGRAM_TOKEN = '7716810141:AAHfQJo6SD2f7-Gr2Zz6QzIYr4eA0tao8oM'
+TELEGRAM_TOKEN = '7716810141:AAHfQJo6SD2f7-Gr2Zz6QzIYr4eA0tao8oM'  # Place your token here
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """يتم تنفيذ هذه الدالة عند بدء المحادثة مع البوت"""
@@ -21,6 +21,9 @@ async def shorten_url(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         await update.message.reply_text(f'الرابط المختصر: {short_url}')
     else:
         await update.message.reply_text('حدث خطأ أثناء محاولة تقصير الرابط.')
+    
+    # إيقاف البوت بعد إرسال الرابط المختصر
+    context.application.stop()
 
 def main():
     # إعداد البوت باستخدام Application بدلاً من Updater
