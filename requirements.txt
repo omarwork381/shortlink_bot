@@ -1,0 +1,4 @@
+selenium==4.18.1
+python-telegram-bot==20.8
+pandas==2.2.1
+pysqlite3==2.6.0  # إضافة دعم SQLite3 محدد
