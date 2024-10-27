@@ -21,9 +21,6 @@ async def shorten_url(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         await update.message.reply_text(f'الرابط المختصر: {short_url}')
     else:
         await update.message.reply_text('حدث خطأ أثناء محاولة تقصير الرابط.')
-    
-    # إيقاف البوت بعد إرسال الرابط المختصر
-    context.application.stop()
 
 def main():
     # إعداد البوت باستخدام Application بدلاً من Updater
