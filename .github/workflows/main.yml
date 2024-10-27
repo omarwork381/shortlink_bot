@@ -25,4 +25,4 @@ jobs:
 
       - name: Run the bot
         run: |
-          python bot.py  # استبدل your_bot_script.py باسم ملف البوت الخاص بك
+          python bot.py  # استبدل bot.py باسم ملف البوت الخاص بك
